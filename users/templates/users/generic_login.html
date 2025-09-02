@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de Usuário</title>
-    <link rel="stylesheet" href="{% static 'login/generic_style.css' %}">
+    <link rel="stylesheet" href="{% static 'generic_style.css' %}">
 </head>
 <body>
     <div class="container">
         <h1>Registro de Usuário</h1>
 
-        <form id="registroForm">
+        <form id="registroForm" method="post" enctype="multipart/form-data">
             <label for="user_type">Tipo de Usuário</label>
             <select id="user_type" name="user_type" required>
                 <option value="">Selecione...</option>
