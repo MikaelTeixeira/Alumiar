@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumiar</title>
+  <link rel="stylesheet" href="../Assets/CSS/psicologo.css">
+</head>
+<body>
+  <div class="container">
+    
+    <a id="back-button" href="cadastro.html" class="back-btn"></a>
+
+    <form id="form-cadastro">
+      
+      <div id="input-left">
+        
+        <div class="input-place">
+          <input type="text" id="Name-input" class="input">
+          <small class="input-indicator">Digite seu nome completo</small>
+        </div>
+
+      <div class="input-place">
+        <input type="email" id="Email-input" class="input">
+        <small class="input-indicator">Digite seu e-mail</small>
+      </div>
+
+      <div class="input-place">
+        <input type="password" id="Password-input" class="input">
+        <small class="input-indicator">Digite sua senha</small>
+      </div>
+
+      <div class="input-place">
+        <input type="text" id="CPF-input" class="input">
+        <small class="input-indicator">Digite seu CPF</small>
+      </div>
+
+      <div class="input-place">
+        <input type="date" id="Birthdate-input" class="input" placeholder="dd/mm/aaaa">
+        <small class="input-indicator">Digite sua data de nascimento</small>
+      </div>
+
+      
+      </div>
+
+      <div id="input-right">
+        
+        <div id="upper-input">
+
+          <div id="crp-supervisor-input"class="input-place">
+          
+            <input type="text" id="supervisor-crp" class="input">
+
+            <div id="indicator-box"> <!-- UTILIZEI PRA QUESTÃO ESTÉTICA EM DEIXAR O TEXTO COMEÇANDO NO INÍCIO DO BOTÃO, MESMO QUE O BOTÃO ESTEJA CENTRALIZADO -->
+              <small class="input-indicator">Digite seu N° de CRP</small>
+            </div>
+          
+          </div>
+          
+          
+        </div>
+        <div id="middle-inputs">
+
+          <div id="curriculum-input" class="file-input">
+
+            <label id="curriculum" class="file-upload">
+              <img class="Paperclip-img" src="../Assets/IMGs/Paperclip.svg" alt="Paperclip-img">
+              <input type="file" hidden>
+            </label>
+            <small class="file-upload-indicator">Anexe seu currículo</small>
+
+          </div>
+          
+          <div id="doc-with-pic-place" class="file-input">
+            <label id="doc-with-pic" class="file-upload">
+              <img class="Paperclip-img" src="../Assets/IMGs/Paperclip.svg" alt="Paperclip-img">
+              <input type="file" hidden>
+            </label>
+            <small class="file-upload-indicator">Anexe algum documento com foto</small>
+          </div>
+        
+        </div>
+        
+        <div id="lower-input">
+          <label id="profile-photo" class="file-upload">
+            <img class="Paperclip-img" src="../Assets/IMGs/Paperclip.svg" alt="Paperclip-img">
+            <input type="file" hidden>
+          </label>
+          <small class="file-upload-indicator">Anexe a foto de perfil</small>
+        </div>
+
+        <button id="register-button" type="submit">REGISTRAR</button>
+      
+      </div>
+    </form>
+  </div>
+
+  <script src="../Assets/JavaScript/estudante.js"></script>
+</body>
+</html>
