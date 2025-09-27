@@ -10,4 +10,4 @@ def psy_register(request):
     return render(request, 'users/psy_register.html')
 
 def pacient_register(request):
-    return render(request, 'users/pacient_register.html')
+    return render(request, 'users/patient_register.html')
