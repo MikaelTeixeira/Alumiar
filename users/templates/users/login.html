@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumiar - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'users/css/login.css'%}">
+
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div>
+                <h1 class="title">ALUMIAR</h1>
+                <p id="description">
+                    Um espaço de escuta e acolhimento, onde quem precisa de apoio encontra quem deseja ajudar. Psicologia acessível, com empatia e propósito.
+                </p>
+            </div>
+        </div>
+        <div class="right-section">
+            <form class="form">
+                <div class="input-group">
+                    <div class="input-icon"> <img class="inputs-icons" src = "{% static "Users/imgs/user-icon.svg" %}" alt="User-icon"></div>
+                    <div class="input-field"><input type="email" placeholder="Digite seu e-mail"></div>
+                </div>
+                <div class="input-group">
+                    <div class="input-icon"><img class="inputs-icons" src= "{%static "Users/imgs/lock-icon.svg"%}" alt="Lock-icon"></div>
+                    <div class="input-field"><input type="password" placeholder="Digite sua senha"></div>
+                </div>
+                <div class="password-group">
+                    <a href="" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="login-btn">LOGIN</button>
+            </form>
+            <a href="select_register.html" class="register-link">É novo? Cadastrar</a>
+        </div>
+    </div>
+
+
+    {% comment %} <script src="{% static "users/JS/login.js%}"></script> {% endcomment %}
+</body>
+</html>
