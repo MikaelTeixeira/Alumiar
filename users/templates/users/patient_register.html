@@ -6,12 +6,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alumiar</title>
-  <link rel="stylesheet" href="{% static 'users/css/register.css' %}">
+  <link rel="stylesheet" href="{% static 'users/css/patient_register.css' %}">
 </head>
 <body>
   <div class="container">
     
-    <a id="back-button" href="cadastro.html" class="back-btn"></a>
+    <a id="back-button" href="{% url 'select_register' %}" class="back-btn"></a>
 
     <form id="form-cadastro">
       
@@ -58,7 +58,7 @@
         </div>
         <div id="lower-input">
           <label id="profile-photo" class="file-upload">
-            <img class="Paperclip-img" src="../Assets/IMGs/Paperclip.svg" alt="Paperclip-img">
+            <img class="Paperclip-img" src=".{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
             <input type="file" hidden>
           </label>
           <small id="file-upload-indicator">Anexe a foto de perfil</small>
@@ -70,6 +70,7 @@
     </form>
   </div>
 
-  <script src="../Assets/JavaScript/estudante.js"></script>
+  <script src="{% static 'users/js/student.js' %}"></script>
+
 </body>
 </html>

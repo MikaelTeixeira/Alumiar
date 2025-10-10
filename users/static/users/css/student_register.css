@@ -6,7 +6,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("../IMGs/cadastro.svg") no-repeat center center fixed;
+  background: url("../imgs/register.svg") no-repeat center center fixed;
   background-size: cover;
   color: white;
 }
@@ -22,7 +22,7 @@ body {
 #back-button {
   width: 60px;
   height: 60px;
-  background-image: url("../IMGs/Back-button.svg");
+  background-image: url("../imgs/back-button.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;

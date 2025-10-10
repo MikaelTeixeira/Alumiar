@@ -31,7 +31,7 @@ body{
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: transform .3s ease;
-  background-image: url("../IMGs/large-background.svg");
+  background-image: url("../imgs/large-background.svg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

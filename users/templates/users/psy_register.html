@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     
-    <a id="back-button" href="cadastro.html" class="back-btn"></a>
+    <a id="back-button" href="{% url 'select_register' %}" class="back-btn"></a>
 
     <form id="form-cadastro">
       
@@ -65,7 +65,7 @@
           <div id="curriculum-input" class="file-input">
 
             <label id="curriculum" class="file-upload">
-              <img class="Paperclip-img" src="../Assets/IMGs/Paperclip.svg" alt="Paperclip-img">
+              <img class="Paperclip-img" src="{% static "users/imgs/paperclip.svg"%}" alt="Paperclip-img">
               <input type="file" hidden>
             </label>
             <small class="file-upload-indicator">Anexe seu currículo</small>
@@ -74,7 +74,7 @@
           
           <div id="doc-with-pic-place" class="file-input">
             <label id="doc-with-pic" class="file-upload">
-              <img class="Paperclip-img" src="../Assets/IMGs/Paperclip.svg" alt="Paperclip-img">
+              <img class="Paperclip-img" src="{% static "users/imgs/paperclip.svg"%}" alt="Paperclip-img">
               <input type="file" hidden>
             </label>
             <small class="file-upload-indicator">Anexe algum documento com foto</small>
@@ -84,7 +84,7 @@
         
         <div id="lower-input">
           <label id="profile-photo" class="file-upload">
-            <img class="Paperclip-img" src="../Assets/IMGs/Paperclip.svg" alt="Paperclip-img">
+            <img class="Paperclip-img" src="{% static "users/imgs/paperclip.svg"%}" alt="Paperclip-img">
             <input type="file" hidden>
           </label>
           <small class="file-upload-indicator">Anexe a foto de perfil</small>
@@ -96,6 +96,6 @@
     </form>
   </div>
 
-  <script src{% static "Users/JS/psicologo.js"%}"></script>
+  <script src{% static "Users/js/psy.js"%}"></script>
 </body>
 </html>

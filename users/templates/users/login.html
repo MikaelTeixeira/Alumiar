@@ -34,11 +34,12 @@
                 </div>
                 <button type="submit" class="login-btn">LOGIN</button>
             </form>
-            <a href="select_register.html" class="register-link">É novo? Cadastrar</a>
+            <a href="{% url 'select_register' %}" class="register-link">É novo? Cadastrar</a>
         </div>
     </div>
 
 
-    {% comment %} <script src="{% static "users/JS/login.js%}"></script> {% endcomment %}
+<script src= "{% static "users/js/login.js" %}" ></script>
+
 </body>
 </html>
