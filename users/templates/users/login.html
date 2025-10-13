@@ -6,40 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumiar - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'users/css/login.css'%}">
-
+    <link rel="stylesheet" href="{% static 'users/css/login.css' %}">
 </head>
+
 <body>
     <div class="container">
         <div class="left-section">
             <div>
                 <h1 class="title">ALUMIAR</h1>
                 <p id="description">
-                    Um espaço de escuta e acolhimento, onde quem precisa de apoio encontra quem deseja ajudar. Psicologia acessível, com empatia e propósito.
+                    Um espaço de escuta e acolhimento, onde quem precisa de apoio encontra quem deseja ajudar.
+                    Psicologia acessível, com empatia e propósito.
                 </p>
             </div>
         </div>
+
         <div class="right-section">
-            <form class="form">
-                <div class="input-group">
-                    <div class="input-icon"> <img class="inputs-icons" src = "{% static "Users/imgs/user-icon.svg" %}" alt="User-icon"></div>
-                    <div class="input-field"><input type="email" placeholder="Digite seu e-mail"></div>
+
+            {% if messages %}
+                <div class="message-container" style="margin-bottom: 15px;">
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }}" 
+                             style="background-color: #fdecea; border: 1px solid #f5c6cb; 
+                                    color: #b71c1c; padding: 10px; border-radius: 6px; 
+                                    text-align: center; font-weight: 600;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                 </div>
+            {% endif %}
+
+            <form class="form" method="POST">
+                {% csrf_token %}
+
                 <div class="input-group">
-                    <div class="input-icon"><img class="inputs-icons" src= "{%static "Users/imgs/lock-icon.svg"%}" alt="Lock-icon"></div>
-                    <div class="input-field"><input type="password" placeholder="Digite sua senha"></div>
+                    <div class="input-icon">
+                        <img class="inputs-icons" src="{% static 'users/imgs/user-icon.svg' %}" alt="User-icon">
+                    </div>
+                    <div class="input-field">
+                        <input type="email" name="email" placeholder="Digite seu e-mail" required>
+                    </div>
                 </div>
+
+                <div class="input-group">
+                    <div class="input-icon">
+                        <img class="inputs-icons" src="{% static 'users/imgs/lock-icon.svg' %}" alt="Lock-icon">
+                    </div>
+                    <div class="input-field">
+                        <input type="password" name="senha_custom" placeholder="Digite sua senha" required>
+                    </div>
+                </div>
+
                 <div class="password-group">
-                    <a href="" class="forgot-password">Esqueceu a senha?</a>
+                    <a href="{% url 'forget_password' %}" class="forgot-password">Esqueceu a senha?</a>
                 </div>
+
                 <button type="submit" class="login-btn">LOGIN</button>
             </form>
+
             <a href="{% url 'select_register' %}" class="register-link">É novo? Cadastrar</a>
         </div>
     </div>
 
-
-<script src= "{% static "users/js/login.js" %}" ></script>
-
+    <script src="{% static 'users/js/login.js' %}"></script>
 </body>
 </html>

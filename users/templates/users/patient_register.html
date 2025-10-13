@@ -10,25 +10,62 @@
 </head>
 <body>
   <div class="container">
-    
+
+    {% if messages %}
+
+      <ul class="messages">
+        {% for message in messages %}
+
+          <li class="{{ message.tags }}">{{ message }}</li>
+
+        {% endfor %}
+
+      </ul>
+
+    {% endif %}
+
+    {% if user_form.errors %}
+  <ul class="form-errors">
+    {% for field in user_form %}
+      {% for error in field.errors %}
+        <li>{{ field.label }}: {{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if profile_form.errors %}
+  <ul class="form-errors">
+    {% for field in profile_form %}
+      {% for error in field.errors %}
+        <li>{{ field.label }}: {{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %}
+
+
+
     <a id="back-button" href="{% url 'select_register' %}" class="back-btn"></a>
 
-    <form id="form-cadastro">
+    <form id="form-cadastro" method="POST" enctype="multipart/form-data">
+
+      {% csrf_token %}
       
       <div id="input-left">
         
         <div class="input-place">
-          <input type="text" id="Name-input" class="input">
+          <input type="text" name="nome_completo" id="Name-input" class="input" required>
           <small class="input-indicator">Digite seu nome completo</small>
         </div>
 
       <div class="input-place">
-        <input type="email" id="Email-input" class="input">
+        <input type="email" name="email" id="Email-input" class="input" required>
         <small class="input-indicator">Digite seu e-mail</small>
       </div>
 
       <div class="input-place">
-        <input type="password" id="Password-input" class="input">
+        <input type="password" name="senha_custom" id="Password-input" class="input" required>
         <small class="input-indicator">Digite sua senha</small>
       </div>
       
@@ -41,13 +78,13 @@
           <div id="crp-supervisor-input"class="input-place">
           
             <div class="input-place">
-              <input type="date" id="Birthdate-input" class="input" placeholder="dd/mm/aaaa">
+              <input type="date" id="Birthdate-input" name="data_nascimento" class="input" placeholder="dd/mm/aaaa" required>
               <small class="input-indicator">Digite sua data de nascimento</small>
             </div>
 
             
             <div class="input-place">
-              <input type="text" id="CPF-input" class="input">
+              <input type="text" name="cpf" id="CPF-input" class="input" required>
               <small class="input-indicator">Digite seu CPF</small>
             </div>
 
@@ -57,11 +94,19 @@
           
         </div>
         <div id="lower-input">
+
+          <div id="lower-input">
           <label id="profile-photo" class="file-upload">
-            <img class="Paperclip-img" src=".{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
-            <input type="file" hidden>
+            <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip">
+            <input type="file" name="foto_perfil" id="foto_perfil" hidden>
           </label>
+
+          <img id="checkmark" src="{% static 'users/imgs/checkmark.svg' %}" alt="Confirmado" 
+              style="display:none; width:18px; margin-left:8px; vertical-align:middle;">
+
           <small id="file-upload-indicator">Anexe a foto de perfil</small>
+          
+        </div>
         </div>
 
         <button id="register-button" type="submit">REGISTRAR</button>

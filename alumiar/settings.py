@@ -41,6 +41,13 @@ INSTALLED_APPS = [
     'users',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'users.auth_backend.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,6 +59,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'alumiar.urls'
+
 
 TEMPLATES = [
     {
@@ -112,12 +120,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Maceio'
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 

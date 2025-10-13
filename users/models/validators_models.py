@@ -94,3 +94,16 @@ def validate_image_or_pdf(value):
 
     if not value.name.lower().endswith(valid_ext):
         raise ValidationError("Formato inválido, tente PDF, JPEG ou JPG")
+
+
+def apenas_digitos(valor: str) -> str:
+    if not valor:
+        return ""
+    return re.sub(r'\D', '', valor)
+
+def normaliza_cpf(cpf_raw: str) -> str:
+    
+    cpf = apenas_digitos(cpf_raw or "")
+    if len(cpf) != 11:
+        return ""
+    return cpf
