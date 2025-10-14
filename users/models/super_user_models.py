@@ -1,7 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from .validators_models import normaliza_cpf
-from .validators_models import validate_email, validate_cpf, validate_birthday, validate_password
+from .validators_models import (
+    normaliza_cpf,
+    validate_email,
+    validate_cpf,
+    validate_birthday,
+    validate_password
+)
 
 class CustomUser(AbstractUser):
     USER_TYPES = (
@@ -16,18 +21,25 @@ class CustomUser(AbstractUser):
     data_nascimento = models.DateField(validators=[validate_birthday])
     senha_custom = models.CharField(max_length=10, validators=[validate_password])
 
+    nome_completo = models.CharField(max_length=150, blank=True)
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["cpf", "data_nascimento", "senha_custom", "user_type"]
 
     def save(self, *args, **kwargs):
+        # --- Normaliza CPF ---
         if hasattr(self, "cpf"):
             cpf_normal = normaliza_cpf(self.cpf)
             if cpf_normal:
                 self.cpf = cpf_normal
-            else:
-                # Se preferir lançar erro ao salvar
-                # raise ValueError("CPF inválido: deve ter 11 dígitos numéricos.")
-                self.cpf = self.cpf  # ou deixar como está para que validação de formulário falhe antes
+
+        # --- Gera nome completo ---
+        nome = (self.first_name or "").strip()
+        sobrenome = (self.last_name or "").strip()
+        nome_completo = f"{nome} {sobrenome}".strip()
+        if nome_completo and self.nome_completo != nome_completo:
+            self.nome_completo = nome_completo
+
         super().save(*args, **kwargs)
 
     def __str__(self):

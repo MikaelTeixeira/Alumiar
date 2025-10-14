@@ -101,7 +101,7 @@ function setupCancelButton() {
     cancelBtn.addEventListener('click', function() {
         if (confirm('Deseja realmente cancelar o agendamento?')) {
             alert('Agendamento cancelado!');
-            window.location.href = 'index.html';
+            window.location.href = cancelRedirectUrl;
         }
     });
 }
