@@ -1,7 +1,11 @@
+const form = document.querySelector("#form-cadastro");
 
-const form = document.querySelector(".form-cadastro");
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  alert("Cadastro realizado com sucesso!");
-});
+if (form) {
+  form.addEventListener("submit", () => {
+    const button = document.querySelector("#register-button");
+    if (button) {
+      button.textContent = "Enviando...";
+      button.disabled = true;
+    }
+  });
+}

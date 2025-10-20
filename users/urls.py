@@ -20,4 +20,6 @@ urlpatterns= [
     path("logged/forget_password/", views.Forget_password, name="forget_password"),
     
     path("logged/consulta/", views.Consulta, name="consulta"),
+
+    path("registered/", views.confirmacao_registro, name="registered"),
 ]

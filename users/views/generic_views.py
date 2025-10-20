@@ -21,3 +21,6 @@ def Configuration(request):
 
 def Consulta(request):
     return render(request, "users/consulta.html")
+
+def confirmacao_registro(request):
+    return render(request, "users/registered.html")
