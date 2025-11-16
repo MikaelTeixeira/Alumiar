@@ -7,7 +7,7 @@ def login_view(request):
         print("POST recebido:", request.POST)
 
         email = request.POST.get("email")
-        password = request.POST.get("senha_custom")  # ← aqui está o nome correto
+        password = request.POST.get("senha_custom") 
 
         print(f"Email recebido: {email}")
         print(f"Senha recebida: {password}")

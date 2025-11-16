@@ -7,9 +7,9 @@ urlpatterns= [
 
     path("register/", views.select_register, name="select_register"),
 
-    path("register/student/", views.student_register, name="student_register"),
+    path("register/student/", views.register_student, name="student_register"),
     
-    path("register/psy/", views.psy_register, name="psy_register"),
+    path("register/psy/", views.register_psychologist, name="psy_register"),
     
     path("register/patient/", views.patient_register, name="patient_register"),
     

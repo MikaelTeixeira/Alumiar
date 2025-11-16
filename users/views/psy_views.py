@@ -1,25 +1,59 @@
+# users/views.py
+
 from django.shortcuts import render, redirect
-from ..forms import (
-    CustomUserForm,
-    PsychologistProfileForm,
-)
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.db import transaction
+from ..models import PsychologistProfile
 
-def psy_register(request):
-    user_form = CustomUserForm()
-    profile_form = PsychologistProfileForm()
+User = get_user_model()
 
+@transaction.atomic
+def register_psychologist(request):
     if request.method == "POST":
-        user_form = CustomUserForm(request.POST)
-        profile_form = PsychologistProfileForm(request.POST, request.FILES)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            return redirect('login')
+        nome = request.POST.get("nome_completo")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        cpf = request.POST.get("cpf")
+        birth = request.POST.get("data_nascimento")
+        crp = request.POST.get("crp")
 
-    return render(request, 'users/psy_register.html', {
-        "user_form": user_form,
-        "profile_form": profile_form
-    })
+        documento = request.FILES.get("documento_oficial")
+        curriculo = request.FILES.get("curriculo")   
+        foto = request.FILES.get("foto_perfil")
+
+        if not nome or not email or not password or not cpf or not birth or not crp:
+            messages.error(request, "Preencha todos os campos obrigatórios.")
+            return redirect("psy_register")
+
+        try:
+            user = User.objects.create_user(
+                username=email,
+                email=email,
+                cpf=cpf,
+                data_nascimento=birth,
+                password=password,
+                is_psychologist=True  
+            )
+        except Exception as e:
+            messages.error(request, "Erro ao criar usuário: " + str(e))
+            return redirect("psy_register")
+
+        try:
+            PsychologistProfile.objects.create(
+                user=user,
+                nome_completo=nome,
+                crp=crp,
+                documento_oficial=documento,
+                curriculo=curriculo,
+                foto_perfil=foto
+            )
+        except Exception as e:
+            messages.error(request, "Erro ao criar perfil: " + str(e))
+            user.delete()
+            return redirect("psy_register")
+
+        return redirect("registered")
+
+    return render(request, "users/psy_register.html")

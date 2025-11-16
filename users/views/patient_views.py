@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.db import IntegrityError, transaction
 from django.contrib import messages
 from ..forms import CustomUserForm, PatientProfileForm
-from ..models import normaliza_cpf  # importante
+from ..models import normaliza_cpf 
 
 def patient_register(request):
     if request.method == "POST":
@@ -14,13 +14,11 @@ def patient_register(request):
                 with transaction.atomic():
                     user = user_form.save(commit=False)
 
-                    # Normaliza o CPF antes de salvar
+                    
                     user.cpf = normaliza_cpf(user_form.cleaned_data.get("cpf", ""))
 
-                    # Define o tipo de usuário
                     user.user_type = "PAT"
 
-                    # Define a senha
                     user.set_password(user_form.cleaned_data.get("senha_custom"))
 
                     user.save()

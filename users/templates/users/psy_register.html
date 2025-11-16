@@ -5,77 +5,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alumiar</title>
-  <link rel="stylesheet" href="{% static "Users/css/psy_register.css"%}">
+  <link rel="stylesheet" href="{% static 'Users/css/psy_register.css' %}">
 </head>
 <body>
   <div class="container">
     
     <a id="back-button" href="{% url 'select_register' %}" class="back-btn"></a>
 
-    <form id="form-cadastro">
+    <form id="form-cadastro" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
       
       <div id="input-left">
         
         <div class="input-place">
-          <input type="text" id="Name-input" class="input">
+          <input type="text" id="Name-input" name="nome_completo" class="input">
           <small class="input-indicator">Digite seu nome completo</small>
         </div>
 
-      <div class="input-place">
-        <input type="email" id="Email-input" class="input">
-        <small class="input-indicator">Digite seu e-mail</small>
-      </div>
+        <div class="input-place">
+          <input type="email" id="Email-input" name="email" class="input">
+          <small class="input-indicator">Digite seu e-mail</small>
+        </div>
 
-      <div class="input-place">
-        <input type="password" id="Password-input" class="input">
-        <small class="input-indicator">Digite sua senha</small>
-      </div>
+        <div class="input-place">
+          <input type="password" id="Password-input" name="password" class="input">
+          <small class="input-indicator">Digite sua senha</small>
+        </div>
 
-      <div class="input-place">
-        <input type="text" id="CPF-input" class="input">
-        <small class="input-indicator">Digite seu CPF</small>
-      </div>
+        <div class="input-place">
+          <input type="text" id="CPF-input" name="cpf" class="input">
+          <small class="input-indicator">Digite seu CPF</small>
+        </div>
 
-      <div class="input-place">
-        <input type="date" id="Birthdate-input" class="input" placeholder="dd/mm/aaaa">
-        <small class="input-indicator">Digite sua data de nascimento</small>
-      </div>
+        <div class="input-place">
+          <input type="date" id="Birthdate-input" name="data_nascimento" class="input">
+          <small class="input-indicator">Digite sua data de nascimento</small>
+        </div>
 
-      
       </div>
 
       <div id="input-right">
-        
+
         <div id="upper-input">
+          <div id="crp-supervisor-input" class="input-place">
+            <input type="text" id="supervisor-crp" name="crp" class="input">
 
-          <div id="crp-supervisor-input"class="input-place">
-          
-            <input type="text" id="supervisor-crp" class="input">
-
-            <div id="indicator-box"> <!-- UTILIZEI PRA QUESTÃO ESTÉTICA EM DEIXAR O TEXTO COMEÇANDO NO INÍCIO DO BOTÃO, MESMO QUE O BOTÃO ESTEJA CENTRALIZADO -->
+            <div id="indicator-box">
               <small class="input-indicator">Digite seu N° de CRP</small>
             </div>
           
           </div>
-          
-          
         </div>
+
         <div id="middle-inputs">
 
           <div id="curriculum-input" class="file-input">
-
             <label id="curriculum" class="file-upload">
-              <img class="Paperclip-img" src="{% static "users/imgs/paperclip.svg"%}" alt="Paperclip-img">
-              <input type="file" hidden>
+              <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
+              <input type="file" name="curriculo" hidden>
             </label>
             <small class="file-upload-indicator">Anexe seu currículo</small>
-
           </div>
           
           <div id="doc-with-pic-place" class="file-input">
             <label id="doc-with-pic" class="file-upload">
-              <img class="Paperclip-img" src="{% static "users/imgs/paperclip.svg"%}" alt="Paperclip-img">
-              <input type="file" hidden>
+              <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
+              <input type="file" name="documento_oficial" hidden>
             </label>
             <small class="file-upload-indicator">Anexe algum documento com foto</small>
           </div>
@@ -84,8 +79,8 @@
         
         <div id="lower-input">
           <label id="profile-photo" class="file-upload">
-            <img class="Paperclip-img" src="{% static "users/imgs/paperclip.svg"%}" alt="Paperclip-img">
-            <input type="file" hidden>
+            <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
+            <input type="file" name="foto_perfil" hidden>
           </label>
           <small class="file-upload-indicator">Anexe a foto de perfil</small>
         </div>
@@ -93,15 +88,14 @@
         <button id="register-button" type="submit">REGISTRAR</button>
       
       </div>
+
     </form>
   </div>
 
   <script>
-
     const registeredUrl = "{% url 'registered' %}";
-
   </script>
   
-  <script src = {% static 'users/js/psy.js'%} > </script>
+  <script src="{% static 'users/js/psy.js' %}"></script>
 </body>
 </html>
