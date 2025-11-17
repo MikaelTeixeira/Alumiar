@@ -12,34 +12,69 @@
     
     <a id="back-button" href="{% url 'select_register' %}" class="back-btn"></a>
 
-    <form id="form-cadastro" method="POST" enctype="multipart/form-data">
+    <form id="form-cadastro" 
+          method="POST" 
+          enctype="multipart/form-data"
+          action="{% url 'psy_register' %}">
+      
       {% csrf_token %}
+
+      {% if user_form.non_field_errors %}
+        <div class="error-box">{{ user_form.non_field_errors }}</div>
+      {% endif %}
+      {% if profile_form.non_field_errors %}
+        <div class="error-box">{{ profile_form.non_field_errors }}</div>
+      {% endif %}
       
       <div id="input-left">
         
         <div class="input-place">
-          <input type="text" id="Name-input" name="nome_completo" class="input">
+          <input type="text" id="Name-input" name="nome_completo" 
+                 value="{{ profile_form.nome_completo.value|default:'' }}" 
+                 class="input" required>
           <small class="input-indicator">Digite seu nome completo</small>
+          {% for error in profile_form.nome_completo.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <div class="input-place">
-          <input type="email" id="Email-input" name="email" class="input">
+          <input type="email" id="Email-input" name="email" 
+                 value="{{ user_form.email.value|default:'' }}" 
+                 class="input" required>
           <small class="input-indicator">Digite seu e-mail</small>
+          {% for error in user_form.email.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <div class="input-place">
-          <input type="password" id="Password-input" name="password" class="input">
+          <input type="password" id="Password-input" name="senha_custom" 
+                 class="input" required>
           <small class="input-indicator">Digite sua senha</small>
+          {% for error in user_form.senha_custom.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <div class="input-place">
-          <input type="text" id="CPF-input" name="cpf" class="input">
+          <input type="text" id="CPF-input" name="cpf" 
+                 value="{{ user_form.cpf.value|default:'' }}" 
+                 class="input" required>
           <small class="input-indicator">Digite seu CPF</small>
+          {% for error in user_form.cpf.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <div class="input-place">
-          <input type="date" id="Birthdate-input" name="data_nascimento" class="input">
+          <input type="date" id="Birthdate-input" name="data_nascimento" 
+                 value="{{ user_form.data_nascimento.value|default:'' }}" 
+                 class="input" required>
           <small class="input-indicator">Digite sua data de nascimento</small>
+          {% for error in user_form.data_nascimento.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
       </div>
@@ -48,12 +83,15 @@
 
         <div id="upper-input">
           <div id="crp-supervisor-input" class="input-place">
-            <input type="text" id="supervisor-crp" name="crp" class="input">
-
+            <input type="text" id="supervisor-crp" name="crp" 
+                   value="{{ profile_form.crp.value|default:'' }}" 
+                   class="input" required>
             <div id="indicator-box">
               <small class="input-indicator">Digite seu N° de CRP</small>
             </div>
-          
+            {% for error in profile_form.crp.errors %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
           </div>
         </div>
 
@@ -62,40 +100,45 @@
           <div id="curriculum-input" class="file-input">
             <label id="curriculum" class="file-upload">
               <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
-              <input type="file" name="curriculo" hidden>
+              <input type="file" name="curriculo" accept=".pdf,.doc,.docx" hidden>
             </label>
             <small class="file-upload-indicator">Anexe seu currículo</small>
+            {% for error in profile_form.curriculo.errors %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
           </div>
           
           <div id="doc-with-pic-place" class="file-input">
             <label id="doc-with-pic" class="file-upload">
               <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
-              <input type="file" name="documento_oficial" hidden>
+              <input type="file" name="documento_oficial" accept=".pdf,.png,.jpg,.jpeg" hidden>
             </label>
             <small class="file-upload-indicator">Anexe algum documento com foto</small>
+            {% for error in profile_form.documento_oficial.errors %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
           </div>
         
         </div>
         
         <div id="lower-input">
+
           <label id="profile-photo" class="file-upload">
             <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
-            <input type="file" name="foto_perfil" hidden>
+            <input type="file" name="foto_perfil" accept=".png,.jpg,.jpeg" hidden>
           </label>
           <small class="file-upload-indicator">Anexe a foto de perfil</small>
+          {% for error in profile_form.foto_perfil.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <button id="register-button" type="submit">REGISTRAR</button>
-      
+
       </div>
 
     </form>
   </div>
 
-  <script>
-    const registeredUrl = "{% url 'registered' %}";
-  </script>
-  
-  <script src="{% static 'users/js/psy.js' %}"></script>
 </body>
 </html>

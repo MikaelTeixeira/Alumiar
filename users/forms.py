@@ -17,10 +17,7 @@ class CustomUserForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.username = self.cleaned_data["email"]
-        user.user_type = "PAT"
         user.set_password(self.cleaned_data["senha_custom"])
-        if commit:
-            user.save()
         return user
     
     def clean_cpf(self):
@@ -53,7 +50,8 @@ class StudentProfileForm(forms.ModelForm):
 class PsychologistProfileForm(forms.ModelForm):
     class Meta:
         model = PsychologistProfile
-        fields = ["nome_completo", "crp", "foto_perfil"]
+        fields = ["nome_completo", "crp", "documento_oficial", "curriculo", "foto_perfil"]
+
 
 
 class LoginForm(forms.Form):
