@@ -12,75 +12,177 @@
 
     <a id="back-button" href="{% url 'select_register' %}" class="back-btn"></a>
 
-    <form id="form-cadastro" method="POST" enctype="multipart/form-data">
+    <form id="form-cadastro"
+          method="POST"
+          enctype="multipart/form-data"
+          action="{% url 'student_register' %}">
       
       {% csrf_token %}
-      
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="error-box">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+
       <div id="input-left">
+
         <div class="input-place">
-          <input type="text" name="nome_completo" id="Name-input" class="input" required>
+          <input type="text"
+                 id="Name-input"
+                 name="nome_completo"
+                 class="input"
+                 value="{{ request.POST.nome_completo|default:'' }}"
+                 required>
           <small class="input-indicator">Digite seu nome completo</small>
+
+          {% if field_errors.nome_completo %}
+            {% for error in field_errors.nome_completo %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
 
         <div class="input-place">
-          <input type="email" name="email" id="Email-input" class="input" required>
+          <input type="email"
+                 id="Email-input"
+                 name="email"
+                 class="input"
+                 value="{{ request.POST.email|default:'' }}"
+                 required>
           <small class="input-indicator">Digite seu e-mail</small>
+
+          {% if field_errors.email %}
+            {% for error in field_errors.email %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
 
         <div class="input-place">
-          <input type="password" name="password" id="Password-input" class="input" required>
+          <input type="password"
+                 id="Password-input"
+                 name="password"
+                 class="input"
+                 required>
           <small class="input-indicator">Digite sua senha</small>
+
+          {% if field_errors.password %}
+            {% for error in field_errors.password %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
 
         <div class="input-place">
-          <input type="text" name="cpf" id="CPF-input" class="input">
-          <small class="input-indicator">Digite seu CPF (opcional)</small>
+          <input type="text"
+                 id="CPF-input"
+                 name="cpf"
+                 class="input"
+                 value="{{ request.POST.cpf|default:'' }}">
+          <small class="input-indicator">Digite seu CPF</small>
+
+          {% if field_errors.cpf %}
+            {% for error in field_errors.cpf %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
 
         <div class="input-place">
-          <input type="date" name="data_nascimento" id="Birthdate-input" class="input" placeholder="dd/mm/aaaa">
+          <input type="date"
+                 id="Birthdate-input"
+                 name="data_nascimento"
+                 class="input"
+                 value="{{ request.POST.data_nascimento|default:'' }}"
+                 required>
           <small class="input-indicator">Digite sua data de nascimento</small>
+
+          {% if field_errors.data_nascimento %}
+            {% for error in field_errors.data_nascimento %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
 
       <div id="input-right">
+
         <div id="upper-input">
           <div id="crp-supervisor-input" class="input-place">
-            <input type="text" name="crp_supervisor" id="supervisor-crp" class="input">
+            <input type="text"
+                   id="supervisor-crp"
+                   name="crp_supervisor"
+                   class="input"
+                   value="{{ request.POST.crp_supervisor|default:'' }}">
             <div id="indicator-box">
-              <small class="input-indicator">Digite o N° de CRP do supervisor (opcional)</small>
+              <small class="input-indicator">Digite o N° de CRP do supervisor </small>
             </div>
+
+            {% if field_errors.crp_supervisor %}
+              {% for error in field_errors.crp_supervisor %}
+                <p class="input-error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
           </div>
         </div>
 
         <div id="middle-inputs">
+
           <div id="curriculum-input" class="file-input">
             <label id="curriculum" class="file-upload">
-              <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
-              <input type="file" name="comprovante_matricula" hidden>
+              <img class="Paperclip-img"
+                   src="{% static 'users/imgs/paperclip.svg' %}"
+                   alt="Paperclip-img">
+              <input type="file" name="comprovante_matricula" hidden required>
             </label>
             <small class="file-upload-indicator">Comprovante de matrícula da faculdade</small>
+
+            {% if field_errors.comprovante_matricula %}
+              {% for error in field_errors.comprovante_matricula %}
+                <p class="input-error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
           </div>
-          
+
           <div id="doc-with-pic-place" class="file-input">
             <label id="doc-with-pic" class="file-upload">
-              <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
-              <input type="file" name="documento_oficial" hidden>
+              <img class="Paperclip-img"
+                   src="{% static 'users/imgs/paperclip.svg' %}"
+                   alt="Paperclip-img">
+              <input type="file" name="documento_oficial" hidden required>
             </label>
             <small class="file-upload-indicator">Anexe documento com foto</small>
+
+            {% if field_errors.documento_oficial %}
+              {% for error in field_errors.documento_oficial %}
+                <p class="input-error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
           </div>
         </div>
 
         <div id="lower-input">
+
           <label id="profile-photo" class="file-upload">
-            <img class="Paperclip-img" src="{% static 'users/imgs/paperclip.svg' %}" alt="Paperclip-img">
-            <input type="file" name="foto_perfil" hidden>
+            <img class="Paperclip-img"
+                 src="{% static 'users/imgs/paperclip.svg' %}"
+                 alt="Paperclip-img">
+            <input type="file" name="foto_perfil" hidden required>
           </label>
           <small class="file-upload-indicator">Anexe a foto de perfil</small>
+
+          {% if field_errors.foto_perfil %}
+            {% for error in field_errors.foto_perfil %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
 
         <button id="register-button" type="submit">REGISTRAR</button>
+
       </div>
+
     </form>
   </div>
 

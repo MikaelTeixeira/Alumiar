@@ -40,11 +40,18 @@ class PatientProfileForm(forms.ModelForm):
 
 
 # FORM ESTUDANTE
+from django import forms
+from .models import StudentProfile
+
 class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = StudentProfile
-        fields = ["nome_completo", "foto_perfil"]
-
+        fields = [
+            "nome_completo",
+            "comprovante_matricula",
+            "documento_oficial",
+            "foto_perfil",
+        ]
 
 # FORM PSICÓLOGO
 class PsychologistProfileForm(forms.ModelForm):

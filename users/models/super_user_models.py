@@ -27,13 +27,11 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = ["cpf", "data_nascimento", "senha_custom", "user_type"]
 
     def save(self, *args, **kwargs):
-        # --- Normaliza CPF ---
         if hasattr(self, "cpf"):
             cpf_normal = normaliza_cpf(self.cpf)
             if cpf_normal:
                 self.cpf = cpf_normal
 
-        # --- Gera nome completo ---
         nome = (self.first_name or "").strip()
         sobrenome = (self.last_name or "").strip()
         nome_completo = f"{nome} {sobrenome}".strip()
