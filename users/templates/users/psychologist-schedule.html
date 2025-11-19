@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - Psicólogo | Alumiar</title>
+
+    <link rel="stylesheet" href="{% static 'users/css/psychologist-schedule.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">ALUMIAR</h1>
+            <button class="close-sidebar" id="closeSidebar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="psychologist-dashboard.html" class="nav-item">
+                <svg width="20" height="20" ...></svg>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-item active">
+                <svg width="20" height="20" ...></svg>
+                <span>Agenda</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <svg width="20" height="20" ...></svg>
+                <span>Pacientes</span>
+            </a>
+
+            <a href="psychologist-records.html" class="nav-item">
+                <svg width="20" height="20" ...></svg>
+                <span>Prontuários</span>
+            </a>
+
+            <a href="psychologist-history.html" class="nav-item">
+                <svg width="20" height="20" ...></svg>
+                <span>Histórico</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <svg width="20" height="20" ...></svg>
+                <span>Mensagens</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <svg width="20" height="20" ...></svg>
+                <span>Configurações</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <header class="header">
+
+            <button class="menu-toggle desktop-hamburger" id="menuToggle">
+                <svg width="24" height="24" ...></svg>
+            </button>
+
+            <div class="header-title">
+                <h2>Agenda</h2>
+                <p>Gerencie seus horários e consultas</p>
+            </div>
+
+            <div class="header-spacer"></div>
+
+            <div class="header-right">
+                <p class="header-date" id="currentDateTime"></p>
+
+                <div class="header-actions">
+                    <button class="notification-btn" id="notificationBtn">
+                        <svg width="20" height="20" ...></svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Dr+Silva&background=2563A8&color=fff">
+                        <span>Dr(a). Silva</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="agenda-container">
+            <div class="top-actions">
+                <div class="view-tabs">
+                    <button class="tab-btn active" data-view="day">Dia</button>
+                    <button class="tab-btn" data-view="week">Semana</button>
+                    <button class="tab-btn" data-view="month">Mês</button>
+                </div>
+
+                <button class="btn-primary" id="addBlockBtn">
+                    <svg width="20" height="20" ...></svg>
+                    Bloquear Horário
+                </button>
+            </div>
+
+            <div class="stats-summary">
+
+                <div class="summary-card">
+                    <div class="summary-icon blue">
+                        <svg width="24" height="24" ...></svg>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-label">Hoje</span>
+                        <span class="summary-value">8 consultas</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon green">
+                        <svg width="24" height="24" ...></svg>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-label">Esta Semana</span>
+                        <span class="summary-value">34 consultas</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon orange">
+                        <svg width="24" height="24" ...></svg>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-label">Horários Livres</span>
+                        <span class="summary-value">12 slots</span>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon purple">
+                        <svg width="24" height="24" ...></svg>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-label">Bloqueios</span>
+                        <span class="summary-value">3 períodos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agenda-grid">
+                <div class="calendar-section">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <button class="nav-arrow" id="prevMonth">
+                                <svg width="20" height="20" ...></svg>
+                            </button>
+
+                            <h3 id="currentMonthYear">Novembro 2024</h3>
+
+                            <button class="nav-arrow" id="nextMonth">
+                                <svg width="20" height="20" ...></svg>
+                            </button>
+                        </div>
+
+                        <div class="calendar-grid" id="calendarGrid"></div>
+                    </div>
+
+                    <div class="calendar-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot disponivel"></span>
+                            <span>Disponível</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot agendado"></span>
+                            <span>Com consultas</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot bloqueado"></span>
+                            <span>Bloqueado</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot hoje"></span>
+                            <span>Hoje</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="schedule-section">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h3 id="scheduleTitle">Agenda de Hoje - 07/11/2024</h3>
+
+                            <div class="header-filters">
+                                <select class="filter-select" id="filterStatus">
+                                    <option value="all">Todos Status</option>
+                                    <option value="confirmed">Confirmadas</option>
+                                    <option value="pending">Pendentes</option>
+                                    <option value="cancelled">Canceladas</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="schedule-timeline" id="scheduleTimeline"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modais -->
+
+    <div class="modal" id="appointmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalhes da Consulta</h3>
+                <button class="modal-close" id="closeAppointmentModal">
+                    <svg width="24" height="24" ...></svg>
+                </button>
+            </div>
+            <div class="modal-body" id="appointmentModalBody"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="blockModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Bloquear Horário</h3>
+                <button class="modal-close" id="closeBlockModal">
+                    <svg width="24" height="24" ...></svg>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="blockForm">
+                    <div class="form-group">
+                        <label for="blockDate">Data</label>
+                        <input type="date" id="blockDate" class="form-input" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="blockStartTime">Horário Início</label>
+                            <input type="time" id="blockStartTime" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="blockEndTime">Horário Fim</label>
+                            <input type="time" id="blockEndTime" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="blockReason">Motivo</label>
+                        <select id="blockReason" class="form-input" required>
+                            <option value="">Selecione um motivo</option>
+                            <option value="almoco">Almoço</option>
+                            <option value="reuniao">Reunião</option>
+                            <option value="ferias">Férias</option>
+                            <option value="compromisso">Compromisso Pessoal</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="blockNotes">Observações (opcional)</label>
+                        <textarea id="blockNotes" class="form-input" rows="3"></textarea>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-primary">Confirmar Bloqueio</button>
+                        <button type="button" class="btn-secondary" id="cancelBlockBtn">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="{% static 'users/js/psychologist-schedule.js' %}"></script>
+</body>
+</html>
