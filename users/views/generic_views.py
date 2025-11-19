@@ -1,10 +1,5 @@
 from django.shortcuts import render, redirect
 
-
-def login(request):
-    return render(request, 'users/login.html')
-
-
 def select_register(request):
     return render(request, 'users/select_register.html')
 
@@ -24,3 +19,22 @@ def Consulta(request):
 
 def confirmacao_registro(request):
     return render(request, "users/registered.html")
+
+
+def psicologo_dashboard(request):
+    return render(request, "users/psychologist-dashboard.html")
+
+def psicologo_agenda(request):
+    return render(request, "users/psychologist-schedule.html")
+
+def psicologo_anotacoes(request):
+    return render(request, "users/psychologist-records.html")
+
+def consultas_marcadas(request):
+    return render(request, "users/my-appointments.html")
+
+def historico(request):
+    return render(request,"users/history.html")
+
+def reclamacoes(request):
+    return render(request,"users/complaints.html")

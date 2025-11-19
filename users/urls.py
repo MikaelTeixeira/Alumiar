@@ -22,4 +22,16 @@ urlpatterns= [
     path("logged/consulta/", views.Consulta, name="consulta"),
 
     path("registered/", views.confirmacao_registro, name="registered"),
+
+    path("logged/psychologist-dashboard/", views.psicologo_dashboard, name="psychologist-dashboard"),
+
+    path("logged/consultas-marcadas/", views.consultas_marcadas, name="consultas-marcadas"),
+
+    path("logged/psicologo-agenda/", views.psicologo_agenda, name="psicologo-agenda"),
+
+    path("logged/psicologo-anotacoes/", views.psicologo_anotacoes, name="psicologo-anotacoes"),
+
+    path("logged/historico/", views.historico, name="historico"),
+
+    path("logged/reclamacoes/", views.reclamacoes, name="reclamacoes"),
 ]

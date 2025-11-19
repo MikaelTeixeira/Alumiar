@@ -19,7 +19,6 @@ local_settings.py
 settings_local.py
 
 .vscode/
-.idea/
 *.sublime-project
 *.sublime-workspace
 
@@ -37,9 +36,8 @@ pip-delete-this-directory.txt
 .env
 *.env
 
-**/migrations/**/.*.pyc
-**/migrations/**/.*.py
-!**/migrations/__init__.py
+**/migrations/**/__pycache__/
+**/migrations/**/*.pyc
 
 *.so
 
