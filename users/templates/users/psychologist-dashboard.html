@@ -1,4 +1,4 @@
-{% load static %}
+<{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -21,7 +21,7 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item active">
+            <a href="{% url "psychologist-dashboard" %}" class="nav-item active">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="3" width="7" height="7"></rect>
                     <rect x="14" y="3" width="7" height="7"></rect>
@@ -31,7 +31,7 @@
                 <span>Dashboard</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="{% url "psicologo-agenda" %}" class="nav-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                     <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -41,7 +41,7 @@
                 <span>Agenda</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="{% url "psicologo-agenda" %}" class="nav-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                     <circle cx="9" cy="7" r="4"></circle>
@@ -51,7 +51,7 @@
                 <span>Pacientes</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="{% url "psicologo-anotacoes" %}" class="nav-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
@@ -62,7 +62,7 @@
                 <span>Prontuários</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="{% url "historico" %}" class="nav-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10"></circle>
                     <polyline points="12 6 12 12 16 14"></polyline>
@@ -70,7 +70,7 @@
                 <span>Histórico</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="{% url "psicologo-agenda" %}" class="nav-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
@@ -78,7 +78,7 @@
                 <span>Mensagens</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="{% url "psicologo-agenda" %}" class="nav-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="3"></circle>
                     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
@@ -100,7 +100,7 @@
 
             <div class="header-title">
                 <h2>Dashboard</h2>
-                <p>Bem-vindo, Dr(a). Silva</p>
+                <p>Bem-vindo, Dr(a). {{user.first_name}}</p>
             </div>
 
             <div class="header-spacer"></div>
@@ -118,8 +118,8 @@
                     </button>
 
                     <div class="user-profile">
-                        <img src="https://ui-avatars.com/api/?name=Dr+Silva&background=2563A8&color=fff" alt="Dr(a). Silva">
-                        <span>Dr(a). Silva</span>
+                        <img src="https://ui-avatars.com/api/?name=Dr+Silva&background=2563A8&color=fff" alt="Dr(a).">
+                        <span>Dr(a). {{user.first_name}}</span>
                     </div>
                 </div>
             </div>
@@ -280,3 +280,4 @@
     <script src="{% static 'users/js/psychologist-dashboard.js' %}"></script>
 </body>
 </html>
+>

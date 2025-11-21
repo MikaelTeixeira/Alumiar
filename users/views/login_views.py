@@ -19,7 +19,11 @@ def login_view(request):
             login(request, user)
             messages.success(request, "Login realizado com sucesso!")
             print("Login bem-sucedido:", user)
-            return redirect("homepage")
+
+            if user.user_type == "PAT":
+                  return redirect("homepage")
+            elif user.user_type == "STD" or user.user_type == "PSY":
+                return redirect("psychologist-dashboard")
         else:
             messages.error(request, "E-mail ou senha incorretos.")
             print("Falha no login.")
