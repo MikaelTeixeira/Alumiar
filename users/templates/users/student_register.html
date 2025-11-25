@@ -7,6 +7,7 @@
   <title>Alumiar</title>
   <link rel="stylesheet" href="{% static 'users/css/student_register.css' %}">
 </head>
+
 <body>
   <div class="container">
 
@@ -25,84 +26,71 @@
         {% endfor %}
       {% endif %}
 
+      {% if user_form.non_field_errors %}
+        <div class="error-box">{{ user_form.non_field_errors }}</div>
+      {% endif %}
+      {% if profile_form.non_field_errors %}
+        <div class="error-box">{{ profile_form.non_field_errors }}</div>
+      {% endif %}
+
       <div id="input-left">
 
         <div class="input-place">
           <input type="text"
-                 id="Name-input"
                  name="nome_completo"
                  class="input"
-                 value="{{ request.POST.nome_completo|default:'' }}"
+                 value="{{ profile_form.nome_completo.value|default:'' }}"
                  required>
           <small class="input-indicator">Digite seu nome completo</small>
-
-          {% if field_errors.nome_completo %}
-            {% for error in field_errors.nome_completo %}
-              <p class="input-error">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
+          {% for error in profile_form.nome_completo.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <div class="input-place">
           <input type="email"
-                 id="Email-input"
                  name="email"
                  class="input"
-                 value="{{ request.POST.email|default:'' }}"
+                 value="{{ user_form.email.value|default:'' }}"
                  required>
           <small class="input-indicator">Digite seu e-mail</small>
-
-          {% if field_errors.email %}
-            {% for error in field_errors.email %}
-              <p class="input-error">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
+          {% for error in user_form.email.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <div class="input-place">
           <input type="password"
-                 id="Password-input"
                  name="password"
                  class="input"
                  required>
           <small class="input-indicator">Digite sua senha</small>
-
-          {% if field_errors.password %}
-            {% for error in field_errors.password %}
-              <p class="input-error">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
+          {% for error in user_form.password.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <div class="input-place">
           <input type="text"
-                 id="CPF-input"
                  name="cpf"
                  class="input"
-                 value="{{ request.POST.cpf|default:'' }}">
+                 value="{{ user_form.cpf.value|default:'' }}">
           <small class="input-indicator">Digite seu CPF</small>
-
-          {% if field_errors.cpf %}
-            {% for error in field_errors.cpf %}
-              <p class="input-error">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
+          {% for error in user_form.cpf.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <div class="input-place">
           <input type="date"
-                 id="Birthdate-input"
                  name="data_nascimento"
                  class="input"
-                 value="{{ request.POST.data_nascimento|default:'' }}"
+                 value="{{ user_form.data_nascimento.value|default:'' }}"
                  required>
           <small class="input-indicator">Digite sua data de nascimento</small>
-
-          {% if field_errors.data_nascimento %}
-            {% for error in field_errors.data_nascimento %}
-              <p class="input-error">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
+          {% for error in user_form.data_nascimento.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
       </div>
 
@@ -111,72 +99,55 @@
         <div id="upper-input">
           <div id="crp-supervisor-input" class="input-place">
             <input type="text"
-                   id="supervisor-crp"
                    name="crp_supervisor"
                    class="input"
-                   value="{{ request.POST.crp_supervisor|default:'' }}">
-            <div id="indicator-box">
-              <small class="input-indicator">Digite o N° de CRP do supervisor </small>
-            </div>
-
-            {% if field_errors.crp_supervisor %}
-              {% for error in field_errors.crp_supervisor %}
-                <p class="input-error">{{ error }}</p>
-              {% endfor %}
-            {% endif %}
+                   value="{{ profile_form.crp_supervisor.value|default:'' }}">
+            <small class="input-indicator">CRP do supervisor</small>
+            {% for error in profile_form.crp_supervisor.errors %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
           </div>
         </div>
 
         <div id="middle-inputs">
 
           <div id="curriculum-input" class="file-input">
-            <label id="curriculum" class="file-upload">
+            <label class="file-upload">
               <img class="Paperclip-img"
-                   src="{% static 'users/imgs/paperclip.svg' %}"
-                   alt="Paperclip-img">
+                   src="{% static 'users/imgs/paperclip.svg' %}">
               <input type="file" name="comprovante_matricula" hidden required>
             </label>
-            <small class="file-upload-indicator">Comprovante de matrícula da faculdade</small>
-
-            {% if field_errors.comprovante_matricula %}
-              {% for error in field_errors.comprovante_matricula %}
-                <p class="input-error">{{ error }}</p>
-              {% endfor %}
-            {% endif %}
+            <small class="file-upload-indicator">Comprovante de matrícula</small>
+            {% for error in profile_form.comprovante_matricula.errors %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
           </div>
 
           <div id="doc-with-pic-place" class="file-input">
-            <label id="doc-with-pic" class="file-upload">
+            <label class="file-upload">
               <img class="Paperclip-img"
-                   src="{% static 'users/imgs/paperclip.svg' %}"
-                   alt="Paperclip-img">
+                   src="{% static 'users/imgs/paperclip.svg' %}">
               <input type="file" name="documento_oficial" hidden required>
             </label>
-            <small class="file-upload-indicator">Anexe documento com foto</small>
-
-            {% if field_errors.documento_oficial %}
-              {% for error in field_errors.documento_oficial %}
-                <p class="input-error">{{ error }}</p>
-              {% endfor %}
-            {% endif %}
+            <small class="file-upload-indicator">Documento com foto</small>
+            {% for error in profile_form.documento_oficial.errors %}
+              <p class="input-error">{{ error }}</p>
+            {% endfor %}
           </div>
+
         </div>
 
         <div id="lower-input">
 
-          <label id="profile-photo" class="file-upload">
+          <label class="file-upload">
             <img class="Paperclip-img"
-                 src="{% static 'users/imgs/paperclip.svg' %}"
-                 alt="Paperclip-img">
+                 src="{% static 'users/imgs/paperclip.svg' %}">
             <input type="file" name="foto_perfil" hidden required>
           </label>
-          <small class="file-upload-indicator">Anexe a foto de perfil</small>
-
-          {% if field_errors.foto_perfil %}
-            {% for error in field_errors.foto_perfil %}
-              <p class="input-error">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
+          <small class="file-upload-indicator">Foto de perfil</small>
+          {% for error in profile_form.foto_perfil.errors %}
+            <p class="input-error">{{ error }}</p>
+          {% endfor %}
         </div>
 
         <button id="register-button" type="submit">REGISTRAR</button>
@@ -186,6 +157,6 @@
     </form>
   </div>
 
-  <script src="{% static 'users/js/estudante.js' %}"></script>
+  <script src="{% static 'users/js/student.js' %}"></script>
 </body>
 </html>

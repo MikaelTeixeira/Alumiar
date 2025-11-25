@@ -47,7 +47,7 @@ def configuracoes(request):
 
     if request.method == "POST":
         email = request.POST.get("email")          
-        senha = request.POST.get("senha_custom")   
+        senha = request.POST.get("password")   
 
         alterou_algo = False
 
@@ -76,14 +76,12 @@ def configuracoes(request):
 
             user.email = email
 
-            user.username = email
-
             alterou_algo = True
 
         if senha and senha.strip():
             user.set_password(senha)
 
-            user.senha_custom = senha
+            user.password = senha
 
             alterou_algo = True
         return redirect("configuracoes")

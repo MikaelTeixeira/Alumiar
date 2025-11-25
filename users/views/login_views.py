@@ -7,12 +7,12 @@ def login_view(request):
         print("POST recebido:", request.POST)
 
         email = request.POST.get("email")
-        password = request.POST.get("senha_custom") 
+        password = request.POST.get("password") 
 
         print(f"Email recebido: {email}")
         print(f"Senha recebida: {password}")
 
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, email=email, password=password)
         print("Resultado do authenticate:", user)
 
         if user is not None:

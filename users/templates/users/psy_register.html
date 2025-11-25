@@ -49,10 +49,10 @@
         </div>
 
         <div class="input-place">
-          <input type="password" id="Password-input" name="senha_custom" 
+          <input type="password" id="Password-input" name="password" 
                  class="input" required>
           <small class="input-indicator">Digite sua senha</small>
-          {% for error in user_form.senha_custom.errors %}
+          {% for error in user_form.password.errors %}
             <p class="input-error">{{ error }}</p>
           {% endfor %}
         </div>

@@ -4,7 +4,6 @@ from .models import CustomUser, PatientProfile, StudentProfile, PsychologistProf
 from .models.validators_models import normaliza_cpf
 
 
-# FORM DO USUÁRIO BASE — CADASTRO
 class CustomUserForm(forms.ModelForm):
     password = forms.CharField(
         label="Senha",
@@ -56,7 +55,14 @@ class StudentProfileForm(forms.ModelForm):
             "comprovante_matricula",
             "documento_oficial",
             "foto_perfil",
+            "crp_supervisor",   
         ]
+
+        widgets = {
+            "crp_supervisor": forms.TextInput(attrs={
+                "placeholder": "Digite o CRP do seu supervisor"
+            }),
+        }
 
 
 class PsychologistProfileForm(forms.ModelForm):
@@ -76,7 +82,7 @@ class LoginForm(forms.Form):
         senha = cleaned_data.get("password")
 
         if email and senha:
-            user = authenticate(username=email, password=senha)
+            user = authenticate(email=email, password=senha)
             print("authenticate() retornou:", user)
 
             if not user:

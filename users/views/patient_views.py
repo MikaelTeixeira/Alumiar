@@ -6,6 +6,7 @@ from ..models import normaliza_cpf
 
 def patient_register(request):
     if request.method == "POST":
+        print("POST RECEBIDO:", request.POST)
         user_form = CustomUserForm(request.POST)
         profile_form = PatientProfileForm(request.POST, request.FILES)
 
@@ -14,13 +15,7 @@ def patient_register(request):
                 with transaction.atomic():
                     user = user_form.save(commit=False)
 
-                    
-                    user.cpf = normaliza_cpf(user_form.cleaned_data.get("cpf", ""))
-
                     user.user_type = "PAT"
-
-                    user.set_password(user_form.cleaned_data.get("senha_custom"))
-
                     user.save()
 
                     profile = profile_form.save(commit=False)
@@ -32,8 +27,6 @@ def patient_register(request):
 
             except IntegrityError:
                 messages.error(request, "E-mail ou CPF já cadastrados. Tente outro.")
-        else:
-            messages.error(request, "Verifique os campos e tente novamente.")
     else:
         user_form = CustomUserForm()
         profile_form = PatientProfileForm()

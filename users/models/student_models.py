@@ -1,27 +1,24 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-from .validators_models import validate_name, validate_image_or_pdf, validate_file_size
-
-CustomUser = get_user_model()
+from django.conf import settings
 
 class StudentProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    nome_completo = models.CharField(max_length=75, validators=[validate_name])
-
-    comprovante_matricula = models.FileField(
-        upload_to="matriculas/",
-        validators=[validate_image_or_pdf, validate_file_size]
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="student_profile"
     )
 
-    documento_oficial = models.FileField(
-        upload_to="documentos/",
-        validators=[validate_image_or_pdf, validate_file_size]
-    )
+    nome_completo = models.CharField(max_length=150)
+    comprovante_matricula = models.FileField(upload_to="comprovantes/")
+    documento_oficial = models.FileField(upload_to="documentos/")
+    foto_perfil = models.ImageField(upload_to="students/fotos/")
 
-    foto_perfil = models.ImageField(
-        upload_to="fotos_perfil/",
-        validators=[validate_image_or_pdf, validate_file_size]
+    crp_supervisor = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        help_text="CRP do seu supervisor psicológico"
     )
 
     def __str__(self):
-        return f"Estudante: {self.nome_completo}"
+        return f"Perfil Estudante: {self.nome_completo}"
