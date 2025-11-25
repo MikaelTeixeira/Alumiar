@@ -17,7 +17,6 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            messages.success(request, "Login realizado com sucesso!")
             print("Login bem-sucedido:", user)
 
             if user.user_type == "PAT":

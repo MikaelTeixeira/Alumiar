@@ -1,15 +1,11 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.core.exceptions import ValidationError
-import re
-from  .validators_models import *
-from .super_user_models import *
+from django.contrib.auth import get_user_model
+from .validators_models import validate_name, validate_image_or_pdf, validate_file_size
 
+CustomUser = get_user_model()
 
 class PatientProfile(models.Model):
-
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    
     nome_completo = models.CharField(max_length=75, validators=[validate_name])
 
     foto_perfil = models.FileField(

@@ -5,7 +5,6 @@ from .validators_models import (
     validate_email,
     validate_cpf,
     validate_birthday,
-    validate_password
 )
 
 class CustomUser(AbstractUser):
@@ -15,16 +14,16 @@ class CustomUser(AbstractUser):
         ("PAT", "Paciente"),
     )
 
+    username = None 
+
     user_type = models.CharField(max_length=3, choices=USER_TYPES)
     email = models.EmailField(unique=True, validators=[validate_email])
     cpf = models.CharField(max_length=11, unique=True, validators=[validate_cpf])
     data_nascimento = models.DateField(validators=[validate_birthday])
-    senha_custom = models.CharField(max_length=10, validators=[validate_password])
-
     nome_completo = models.CharField(max_length=150, blank=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["cpf", "data_nascimento", "senha_custom", "user_type"]
+    REQUIRED_FIELDS = ["cpf", "data_nascimento", "user_type"]
 
     def save(self, *args, **kwargs):
         if hasattr(self, "cpf"):
@@ -35,6 +34,7 @@ class CustomUser(AbstractUser):
         nome = (self.first_name or "").strip()
         sobrenome = (self.last_name or "").strip()
         nome_completo = f"{nome} {sobrenome}".strip()
+
         if nome_completo and self.nome_completo != nome_completo:
             self.nome_completo = nome_completo
 
